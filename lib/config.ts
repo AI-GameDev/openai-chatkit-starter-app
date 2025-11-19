@@ -7,15 +7,15 @@ export const CREATE_SESSION_ENDPOINT = "/api/create-session";
 
 export const STARTER_PROMPTS: StartScreenPrompt[] = [
   {
-    label: "What can you do?",
-    prompt: "What can you do?",
+    label: "어떤 것들을 할 수 있나요?",
+    prompt: "어떤 것들을 할 수 있나요?",
     icon: "circle-question",
   },
 ];
 
-export const PLACEHOLDER_INPUT = "Ask anything...";
+export const PLACEHOLDER_INPUT = "뭐든지 물어보세요...";
 
-export const GREETING = "How can I help you today?";
+export const GREETING = "아크 레이더스 관련 도움을 드리겠습니다.";
 
 export const getThemeConfig = (theme: ColorScheme): ThemeOption => ({
   color: {
