@@ -23,7 +23,7 @@ type ChatKitPanelProps = {
   theme: ColorScheme;
   onWidgetAction: (action: FactAction) => Promise<void>;
   onResponseEnd: () => void;
-  onThemeRequest: (scheme: ColorScheme) => void;
+  onThemeRequest?: (scheme: ColorScheme) => void;
 };
 
 type ErrorState = {
@@ -193,9 +193,8 @@ export function ChatKitPanel({
           body: JSON.stringify({
             workflow: { id: WORKFLOW_ID },
             chatkit_configuration: {
-              // enable attachments
               file_upload: {
-                enabled: true,
+                enabled: false,
               },
             },
           }),
@@ -265,7 +264,7 @@ export function ChatKitPanel({
     api: { getClientSecret },
     theme: {
       colorScheme: theme,
-      ...getThemeConfig(theme),
+      ...getThemeConfig(),
     },
     startScreen: {
       greeting: GREETING,
@@ -274,8 +273,7 @@ export function ChatKitPanel({
     composer: {
       placeholder: PLACEHOLDER_INPUT,
       attachments: {
-        // Enable attachments
-        enabled: true,
+        enabled: false,
       },
     },
     threadItemActions: {
@@ -286,13 +284,9 @@ export function ChatKitPanel({
       params: Record<string, unknown>;
     }) => {
       if (invocation.name === "switch_theme") {
-        const requested = invocation.params.theme;
-        if (requested === "light" || requested === "dark") {
-          if (isDev) {
-            console.debug("[ChatKitPanel] switch_theme", requested);
-          }
-          onThemeRequest(requested);
-          return { success: true };
+        // Theme switching is disabled (fixed to dark mode)
+        if (isDev) {
+          console.debug("[ChatKitPanel] switch_theme called but theme is fixed");
         }
         return { success: false };
       }
